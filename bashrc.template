@@ -1,0 +1,11 @@
+
+kiosk-reload() {
+    pkill -TERM firefox-esr
+    test -f /home/pi/pi-display/settings.data && . /home/pi/pi-display/settings.data
+    firefox -kiosk -private-window "${URL}"
+}
+
+kiosk-setUrl() {
+    echo "URL=$1" > /home/pi/pi-display/settings.data
+    kiosk-reload
+}
