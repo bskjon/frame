@@ -6,6 +6,13 @@ kiosk-reload() {
 }
 
 kiosk-setUrl() {
+    if test -f /home/pi/pi-display/settings.data; then
+        echo "Updating existing file"
+    else
+        mkdir -p /home/pi/pi-display/
+        touch /home/pi/pi-display/settings.data
+    fi
+
     echo "URL=$1" > /home/pi/pi-display/settings.data
     kiosk-reload
 }
