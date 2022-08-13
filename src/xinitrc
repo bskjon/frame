@@ -34,7 +34,7 @@ while true; do
 
   # Start the browser
   URL="https://threatmap.checkpoint.com/" # In case the settings file doesn't exist
-  test -f /home/pi/pi-display/settings.data && . /home/pi/pi-display/settings.data
+  test -f /home/pi/pi-display/settings.data && URL=$(cat /home/pi/pi-display/settings.data | grep "URL=" | cut -d  "=" -f 2-)
   firefox -kiosk -private-window "${URL}"
   #chromium-browser --check-for-update-interval=31536000 -app="${URL}"
 done;
