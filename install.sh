@@ -34,16 +34,29 @@ raspi-config nonint do_memory_split 256
 apt install -y matchbox xorg x11-xserver-utils xinit ttf-mscorefonts-installer unattended-upgrades vim unclutter firefox-esr
 
 # Setup rc.local
+if test -f /etc/rc.local; then
+    rm /etc/rc.local
+fi
 cp $SCRIPTDIR/src/rc.local /etc/rc.local
 
 # Setup .xinitrc
+if test -f /home/pi/.xinitrc; then
+    rm /home/pi/.xinitrc
+fi
 sudo -u pi cp $SCRIPTDIR/src/xinitrc /home/pi/.xinitrc
 
 # Allow anyone to start an Xserver
 sed -i 's/allowed_users=.*/allowed_users=anybody/' /etc/X11/Xwrapper.config
 
 # Enable Automatic upgrades to keep the box secure
+if test -f /etc/apt/apt.conf.d/50unattended-upgrades; then
+    rm /etc/apt/apt.conf.d/50unattended-upgrades
+fi
 cp $SCRIPTDIR/src/50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades
+
+if test -f /etc/apt/apt.conf.d/20auto-upgrades; then
+    rm /etc/apt/apt.conf.d/20auto-upgrades
+fi
 cp $SCRIPTDIR/src/20auto-upgrades /etc/apt/apt.conf.d/20auto-upgrades
 
 sudo cat $SCRIPTDIR/bashrc.template >> /home/pi/.bashrc
