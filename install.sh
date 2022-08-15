@@ -38,6 +38,7 @@ if test -f /etc/rc.local; then
     rm /etc/rc.local
 fi
 cp $SCRIPTDIR/src/rc.local /etc/rc.local
+chmod +x /etc/rc.local
 
 # Setup .xinitrc
 if test -f /home/pi/.xinitrc; then
